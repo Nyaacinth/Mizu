@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mizu/widgets/water_drop.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const ProviderScope(child: MainApp()));
@@ -24,6 +25,12 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    (() async {
+      final prefs = await SharedPreferences.getInstance();
+      setState(() {
+        progress = progressTweening = prefs.getDouble('progress') ?? 0.0;
+      });
+    })();
     riseTweeningController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 1),
@@ -36,7 +43,6 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
     );
     riseTweeningController.addListener(() {
       setState(() {
-        debugPrint('progressTweening: $progressTweening');
         if (progress > 0.99) {
           progressTweening = 1.0 * (1 - riseTweeningAnimation.value);
         } else {
@@ -48,6 +54,10 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
       if (status == AnimationStatus.completed) {
         progress = progressTweening;
         riseTweeningController.reset();
+        (() async {
+          final prefs = await SharedPreferences.getInstance();
+          prefs.setDouble('progress', progress);
+        })();
       }
     });
   }
