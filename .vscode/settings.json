@@ -1,4 +1,5 @@
 {
+    "explorer.fileNesting.enabled": true,
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
         "source.organizeImports": "explicit"
@@ -11,6 +12,11 @@
     },
     "[yaml]": {
         "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "explorer.fileNesting.patterns": {
+        "pubspec.yaml": "pubspec.lock,pubspec_overrides.yaml,.packages,.flutter-plugins,.flutter-plugins-dependencies,.metadata",
+        "analysis_options.yaml": "custom_lint.log",
+        "*.dart": "${capture}.g.dart"
     },
     "[dart]": {
         "editor.rulers": [
