@@ -69,6 +69,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
         body: SafeArea(
           child: Center(
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Mizu(
                   progress: progressTweening,
