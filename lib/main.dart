@@ -8,7 +8,7 @@ void main() {
   runApp(const ProviderScope(child: MainApp()));
 }
 
-@FunctionalWidget(widgetType: FunctionalWidgetType.stateless)
+@swidget
 Widget _mainApp(BuildContext context) {
   return const MaterialApp(
     home: Scaffold(
