@@ -36,12 +36,17 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
     );
     riseTweeningController.addListener(() {
       setState(() {
-        progressTweening = progress + riseTweeningAnimation.value * 0.125;
+        debugPrint('progressTweening: $progressTweening');
+        if (progress > 0.99) {
+          progressTweening = 1.0 * (1 - riseTweeningAnimation.value);
+        } else {
+          progressTweening = progress + riseTweeningAnimation.value * 0.125;
+        }
       });
     });
     riseTweeningController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        progress = progressTweening % 1;
+        progress = progressTweening;
         riseTweeningController.reset();
       }
     });
@@ -62,7 +67,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
                     onPressed: () {
                       riseTweeningController.forward();
                     },
-                    child: Text('吨吨吨')),
+                    child: Text(progress > 0.99 ? '重置' : '吨吨吨')),
               ],
             ),
           ),
