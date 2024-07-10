@@ -29,4 +29,4 @@ flutter:
   fonts:
     - family: Kinghwa
       fonts:
-        - asset: assets/fonts/Kinghwa.ttf
+        - asset: assets/fonts/Kinghwa-Minified-Mizu.ttf

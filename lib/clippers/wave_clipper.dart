@@ -19,7 +19,7 @@ class WaveClipper extends CustomClipper<Path> {
     var path = Path();
 
     final double amplitude = size.height * 0.05; // 振幅
-    final double frequency = 0.003; // 频率
+    const double frequency = 0.003; // 频率
     final double phase = waveFactor * (math.pi * 2); // 相位
 
     for (double x = 0; x < size.width; x += 1) {
