@@ -65,6 +65,11 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        colorSchemeSeed: Colors.lightBlue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
       home: Scaffold(
         body: SafeArea(
           child: Center(
@@ -74,11 +79,23 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
                 Mizu(
                   progress: progressTweening,
                 ),
-                ElevatedButton(
-                    onPressed: () {
-                      riseTweeningController.forward();
-                    },
-                    child: Text(progress > 0.99 ? '重置' : '吨吨吨')),
+                TextButton(
+                  onPressed: () {
+                    riseTweeningController.forward();
+                  },
+                  style: TextButton.styleFrom(
+                      padding: const EdgeInsets.all(16.0),
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      backgroundColor: Colors.lightBlue.shade50),
+                  child: Text(
+                    progress > 0.99 ? '重置' : '吨吨吨',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color:
+                          progress > 0.99 ? Colors.blueGrey : Colors.lightBlue,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -127,12 +144,14 @@ class _MizuState extends State<Mizu> with SingleTickerProviderStateMixin {
         WaterDropIcon(
           size: iconSize,
           currentColor: Colors.blueGrey.shade100,
+          maskFilter: MaskFilter.blur(BlurStyle.inner, iconSize * 0.05),
           progress: 2,
           waveFactor: 0,
         ),
         WaterDropIcon(
           size: iconSize,
           currentColor: Colors.lightBlue.shade100,
+          maskFilter: MaskFilter.blur(BlurStyle.inner, iconSize * 0.05),
           progress: widget.progress,
           waveFactor: waveFactorAnimation.value * 2,
         ),
