@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mizu/widgets/water_drop.dart';
@@ -115,10 +116,13 @@ class Mizu extends StatefulWidget {
 }
 
 class _MizuState extends State<Mizu> with SingleTickerProviderStateMixin {
-  // animation controller, duration: 1s, repeat: infinite
   late final AnimationController waveFactorController;
 
   late final Animation waveFactorAnimation;
+
+  final isMobileWeb = kIsWeb &&
+      ([TargetPlatform.iOS, TargetPlatform.android]
+          .contains(defaultTargetPlatform));
 
   @override
   void initState() {
@@ -144,21 +148,27 @@ class _MizuState extends State<Mizu> with SingleTickerProviderStateMixin {
         WaterDropIcon(
           size: iconSize,
           currentColor: Colors.blueGrey.shade100,
-          maskFilter: MaskFilter.blur(BlurStyle.inner, iconSize * 0.05),
+          maskFilter: isMobileWeb
+              ? null
+              : MaskFilter.blur(BlurStyle.inner, iconSize * 0.05),
           progress: 2,
           waveFactor: 0,
         ),
         WaterDropIcon(
           size: iconSize,
           currentColor: Colors.lightBlue.shade100,
-          maskFilter: MaskFilter.blur(BlurStyle.inner, iconSize * 0.05),
+          maskFilter: isMobileWeb
+              ? null
+              : MaskFilter.blur(BlurStyle.inner, iconSize * 0.05),
           progress: widget.progress,
           waveFactor: waveFactorAnimation.value * 2,
         ),
         WaterDropIcon(
           size: iconSize,
           currentColor: Colors.lightBlue,
-          maskFilter: MaskFilter.blur(BlurStyle.inner, iconSize * 0.05),
+          maskFilter: isMobileWeb
+              ? null
+              : MaskFilter.blur(BlurStyle.inner, iconSize * 0.05),
           progress: widget.progress,
           waveFactor: waveFactorAnimation.value,
         ),
