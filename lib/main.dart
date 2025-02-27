@@ -37,10 +37,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
       duration: const Duration(seconds: 1),
     );
     riseTweeningAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: riseTweeningController,
-        curve: Curves.easeInOut,
-      ),
+      CurvedAnimation(parent: riseTweeningController, curve: Curves.easeInOut),
     );
     riseTweeningController.addListener(() {
       setState(() {
@@ -77,17 +74,16 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Mizu(
-                  progress: progressTweening,
-                ),
+                Mizu(progress: progressTweening),
                 TextButton(
                   onPressed: () {
                     riseTweeningController.forward();
                   },
                   style: TextButton.styleFrom(
-                      padding: const EdgeInsets.all(16.0),
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      backgroundColor: Colors.lightBlue.shade50),
+                    padding: const EdgeInsets.all(16.0),
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    backgroundColor: Colors.lightBlue.shade50,
+                  ),
                   child: Text(
                     progress > 0.99 ? '重置' : '吨吨吨',
                     style: TextStyle(
@@ -120,9 +116,12 @@ class _MizuState extends State<Mizu> with SingleTickerProviderStateMixin {
 
   late final Animation waveFactorAnimation;
 
-  final isMobileWeb = kIsWeb &&
-      ([TargetPlatform.iOS, TargetPlatform.android]
-          .contains(defaultTargetPlatform));
+  final isMobileWeb =
+      kIsWeb &&
+      ([
+        TargetPlatform.iOS,
+        TargetPlatform.android,
+      ].contains(defaultTargetPlatform));
 
   @override
   void initState() {
@@ -131,8 +130,10 @@ class _MizuState extends State<Mizu> with SingleTickerProviderStateMixin {
       vsync: this,
       duration: const Duration(seconds: 5),
     );
-    waveFactorAnimation =
-        Tween<double>(begin: 0.0, end: 1.0).animate(waveFactorController);
+    waveFactorAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(waveFactorController);
     waveFactorController.addListener(() {
       setState(() {});
     });
@@ -148,27 +149,30 @@ class _MizuState extends State<Mizu> with SingleTickerProviderStateMixin {
         WaterDropIcon(
           size: iconSize,
           currentColor: Colors.blueGrey.shade100,
-          maskFilter: isMobileWeb
-              ? null
-              : MaskFilter.blur(BlurStyle.inner, iconSize * 0.05),
+          maskFilter:
+              isMobileWeb
+                  ? null
+                  : MaskFilter.blur(BlurStyle.inner, iconSize * 0.05),
           progress: 2,
           waveFactor: 0,
         ),
         WaterDropIcon(
           size: iconSize,
           currentColor: Colors.lightBlue.shade100,
-          maskFilter: isMobileWeb
-              ? null
-              : MaskFilter.blur(BlurStyle.inner, iconSize * 0.05),
+          maskFilter:
+              isMobileWeb
+                  ? null
+                  : MaskFilter.blur(BlurStyle.inner, iconSize * 0.05),
           progress: widget.progress,
           waveFactor: waveFactorAnimation.value * 2,
         ),
         WaterDropIcon(
           size: iconSize,
           currentColor: Colors.lightBlue,
-          maskFilter: isMobileWeb
-              ? null
-              : MaskFilter.blur(BlurStyle.inner, iconSize * 0.05),
+          maskFilter:
+              isMobileWeb
+                  ? null
+                  : MaskFilter.blur(BlurStyle.inner, iconSize * 0.05),
           progress: widget.progress,
           waveFactor: waveFactorAnimation.value,
         ),
@@ -182,7 +186,7 @@ class _MizuState extends State<Mizu> with SingleTickerProviderStateMixin {
               fontFamily: 'Kinghwa',
             ),
           ),
-        )
+        ),
       ],
     );
   }

@@ -9,10 +9,8 @@ class WaveClipper extends CustomClipper<Path> {
   final double progress;
   final double waveFactor;
 
-  WaveClipper({
-    double progress = 0.5,
-    this.waveFactor = 1,
-  }) : progress = 1 - progress;
+  WaveClipper({double progress = 0.5, this.waveFactor = 1})
+    : progress = 1 - progress;
 
   @override
   Path getClip(Size size) {
